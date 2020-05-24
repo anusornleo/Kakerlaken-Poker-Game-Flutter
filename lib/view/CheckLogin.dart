@@ -13,7 +13,7 @@ class CheckLogin extends StatefulWidget {
 class _CheckLoginState extends State<CheckLogin> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future initState() {
+  void initState() {
     super.initState();
     checkAuth(context);
   }

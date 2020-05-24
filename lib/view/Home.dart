@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:getflutter/getflutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:testapp/view/CreateRoom.dart';
 import 'package:testapp/view/InputPin.dart';
 
 import 'Login.dart';
@@ -23,15 +24,13 @@ class _HomeState extends State<Home> {
     getUser();
   }
 
-  Future<String> getUser() async {
-    FirebaseUser user = await _auth.currentUser();
-    print(user.photoUrl);
-    // final prefs = await SharedPreferences.getInstance();
-    // final name = await prefs.get('displayName');
-    // final photo = await prefs.get('photoUrl');
+  void getUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    final name = await prefs.get('displayName');
+    final photo = await prefs.get('photoUrl');
     setState(() {
-      displayName = user.displayName;
-      photoURL = user.photoUrl;
+      displayName = name;
+      photoURL = photo;
     });
   }
 
@@ -51,7 +50,7 @@ class _HomeState extends State<Home> {
               Center(
                 child: GFButton(
                   onPressed: () {
-                    Navigator.pushReplacement(context,
+                    Navigator.push(context,
                         MaterialPageRoute(builder: (context) => InputPin()));
                   },
                   text: "Input Pin",
@@ -59,7 +58,10 @@ class _HomeState extends State<Home> {
               ),
               Center(
                 child: GFButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => CreateRoom()));
+                  },
                   text: "Creat Room",
                 ),
               ),
